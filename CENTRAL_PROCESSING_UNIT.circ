@@ -921,17 +921,17 @@ da2 10
     <comp lib="4" loc="(570,10)" name="ROM">
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 8 8
-0 d 7 5 11 8 3
+0 2 14 2 18 5
 </a>
     </comp>
     <comp lib="4" loc="(750,1490)" name="ROM">
       <a name="addrWidth" val="5"/>
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 5 16
-da2 8410 1c87 25a2 10 440 3c42 10
+da2 8410 487 25a2 10 440 3c42 10
 4da2 5410 5c00 64b1 8410 75a2 7c92 485
-0 504 9da2 10 ac08 b5a2 10 c604
-cda2 10 d402
+0 504 0 0 408 704 784 604
+684 0 d400
 </a>
       <a name="dataWidth" val="16"/>
       <a name="label" val="MCS"/>
