@@ -37,6 +37,7 @@ def assemble(file_name):
                             marker = part.replace(":","")
                             #save marker with its address in a dict
                             addr = str(instruction_location_counter)
+                            addr = str(hex(int(addr))[2:])
                             if len(addr) == 1:
                                 addr = "0" + addr
                             addresses.update({marker : addr})
@@ -124,9 +125,8 @@ def get_info_for_mnemonic(mnemonic, get_length):
         if get_length:
             return 2
         else:
-            print("LOAD A, <addr> will be assembled as it should be, but is not supported by CPU implementation.")
             instruction_parts = mnemonic.split(" ")
-            result = "08 " + addresses[instruction_parts[len(instruction_parts)-1]] + " "
+            result = "03 " + addresses[instruction_parts[len(instruction_parts)-1]] + " "
             return result
     elif ("INC A" in mnemonic):
         if get_length:
