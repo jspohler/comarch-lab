@@ -50,8 +50,6 @@ def assemble(file_name):
         print("An error occurred while reading the file. Please check syntax.")
 
     #second phase, assembling the hex code to be executable in the cpu
-    print(addresses)
-    print(clean_code_lines)
     result_file = open(hex_file_name, "w")
     result_file.write("v3.0 hex words addressed" + "\n")
     #the hex file has 16 lines of hex numbers
@@ -59,7 +57,7 @@ def assemble(file_name):
         line_index_counter = 0
         line = str(hex(row)[2:])
         if len(line) == 1:
-            line = "0" + line
+            line = line + "0" 
         line = line + ": "
         #add a nop as a starter in the first row
         if row == 0:
@@ -82,7 +80,7 @@ def assemble(file_name):
                 line_index_counter += 1
 
         #write line and add a new line
-        result_file.write(line + "\n")
+        result_file.write(line.strip() + "\n")
 
 
 
@@ -116,7 +114,11 @@ def get_info_for_mnemonic(mnemonic, get_length):
         if get_length:
             return 2
         else:
-            result = "0d " + mnemonic[mnemonic.index("#"):] + " "
+            result = mnemonic[mnemonic.index("#") + 1:]
+            result = str(hex(int(result))[2:])
+            if len(result) == 1:
+                result = "0" + result
+            result = "0d " + result + " "
             return result
     elif ("LOAD A, " in mnemonic):
         if get_length:
