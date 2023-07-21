@@ -54,6 +54,7 @@ def assemble(file_name):
     result_file = open(hex_file_name, "w")
     result_file.write("v3.0 hex words addressed" + "\n")
     #the hex file has 16 lines of hex numbers
+    hex_carry = ""
     for row in range(16):
         line_index_counter = 0
         line = str(hex(row)[2:])
@@ -64,17 +65,27 @@ def assemble(file_name):
         if row == 0:
             line_index_counter = 1
             line = line + "00 "
+        if len(hex_carry) != 0:
+            line = line + hex_carry
+            hex_carry = ""
         #if hex numbers per line is reached, new 
         while line_index_counter < 16:
             instruction = ""
             if len(clean_code_lines) > 0:
                 instruction = clean_code_lines.popleft()
             if instruction != "" :
-                if line_index_counter + get_info_for_mnemonic(instruction, True) < 16:
+                print(line_index_counter + get_info_for_mnemonic(instruction, True))
+                if (line_index_counter + get_info_for_mnemonic(instruction, True)) < 17:
                     line = line + get_info_for_mnemonic(instruction, False)
                     line_index_counter += get_info_for_mnemonic(instruction, True)
                 else:
-                    pass
+                    parts = get_info_for_mnemonic(instruction, False).strip().split(" ")
+                    line = line + parts[0]
+                    for hex_part in parts[1:]:
+                        hex_carry = hex_carry + hex_part + " "
+                    print(hex_carry + "test")
+                    print(line_index_counter)
+                    line_index_counter += 1
             else:
                 #fill rest with 00
                 line = line + "00 "
