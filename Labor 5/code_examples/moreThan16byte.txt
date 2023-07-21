@@ -5,6 +5,10 @@ MOV B,A ; Und in Register B für immer speichern
 LOAD A, #4
 ADD A, B
 MOV B, A
+LOAD A, #12 ; diese 4 mit einer constant ersetzen sobald implementiert
+SUB A, B
+AND A, B
+OR A, B
 loop: LOAD A, counter ; Zu wenig Register! Zähler im Speicher
 OUTPUT ; Wir wollen was ausgeben
 INC A ; Zahler erhöhen ...

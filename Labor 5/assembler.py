@@ -74,7 +74,6 @@ def assemble(file_name):
             if len(clean_code_lines) > 0:
                 instruction = clean_code_lines.popleft()
             if instruction != "" :
-                print(line_index_counter + get_info_for_mnemonic(instruction, True))
                 if (line_index_counter + get_info_for_mnemonic(instruction, True)) < 17:
                     line = line + get_info_for_mnemonic(instruction, False)
                     line_index_counter += get_info_for_mnemonic(instruction, True)
@@ -83,8 +82,6 @@ def assemble(file_name):
                     line = line + parts[0]
                     for hex_part in parts[1:]:
                         hex_carry = hex_carry + hex_part + " "
-                    print(hex_carry + "test")
-                    print(line_index_counter)
                     line_index_counter += 1
             else:
                 #fill rest with 00
@@ -93,8 +90,6 @@ def assemble(file_name):
 
         #write line and add a new line
         result_file.write(line.strip() + "\n")
-
-
 
 
 
@@ -205,12 +200,12 @@ def get_info_for_mnemonic(mnemonic, get_length):
             constants.update({instruction_parts[0].replace(":",""): instruction_parts[len(instruction_parts)-1]})
             return 0
         else:
-            pass
+            print("EQU not implemented yet")
     elif ("RESB" in mnemonic):
         if get_length:
             return int(mnemonic[mnemonic.index(" "):])
         else:
-            pass
+            print("RESB not implemented yet")
     else:
         raise Exception("invalid syntax in mnemonic:" + mnemonic)
     
