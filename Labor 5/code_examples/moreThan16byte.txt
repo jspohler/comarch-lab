@@ -1,0 +1,15 @@
+; Startet immer am Anfang
+INPUT ; Wert einlesen
+NOP
+MOV B,A ; Und in Register B für immer speichern
+LOAD A, #4
+ADD A, B
+MOV B, A
+loop: LOAD A, counter ; Zu wenig Register! Zähler im Speicher
+OUTPUT ; Wir wollen was ausgeben
+INC A ; Zahler erhöhen ...
+STORE A, counter ; ... und sichern bevor er weg ist
+BEQ end ; ggf. springen
+JMP loop ; zum Schleifenanfang springen
+end: HALT ; Fertig: Programm anhalten
+counter: DB 0
