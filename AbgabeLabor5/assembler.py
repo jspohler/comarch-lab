@@ -1,6 +1,7 @@
 import sys
 from os.path import exists
 from collections import deque
+import re
 
 PATH_TO_CODE = "code_examples/"
 addresses = {}
@@ -29,7 +30,7 @@ def assemble(file_name):
                 #add line for later
                 clean_code_lines.append(line.strip())
                 #check if line contains address marker definition
-                if ":" in line and "EQU" not in line:
+                if ":" in line:
                     line_parts = line.split(" ")
                     for part in line_parts:
                         if ":" in part:
@@ -122,6 +123,9 @@ def get_info_for_mnemonic(mnemonic, get_length):
             return 2
         else:
             result = mnemonic[mnemonic.index("#") + 1:]
+            result.strip()
+            if not re.match(r'^\d+$',result):
+                result = constants[result]
             result = str(hex(int(result))[2:])
             if len(result) == 1:
                 result = "0" + result
@@ -196,16 +200,21 @@ def get_info_for_mnemonic(mnemonic, get_length):
             return result
     elif ("EQU" in mnemonic):
         if get_length:
-            instruction_parts = mnemonic.split(" ")
+            instruction_parts = mnemonic.strip().split(" ")
             constants.update({instruction_parts[0].replace(":",""): instruction_parts[len(instruction_parts)-1]})
             return 0
         else:
-            print("EQU not implemented yet")
+            return ""
     elif ("RESB" in mnemonic):
         if get_length:
-            return int(mnemonic[mnemonic.index(" "):])
+            instruction_parts = mnemonic.strip().split(" ")
+            result = int(instruction_parts[len(instruction_parts)-1])
+            return result
         else:
-            print("RESB not implemented yet")
+            result = ""
+            for resb in range(get_info_for_mnemonic(mnemonic,True)):
+                result = result + "00 "
+            return result
     else:
         raise Exception("invalid syntax in mnemonic:" + mnemonic)
     

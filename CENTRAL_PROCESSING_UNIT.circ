@@ -906,6 +906,7 @@ da2 10
     </comp>
     <comp lib="4" loc="(590,10)" name="RAM">
       <a name="appearance" val="logisim_evolution"/>
+      <a name="type" val="nonvolatile"/>
     </comp>
     <comp lib="4" loc="(750,1490)" name="ROM">
       <a name="addrWidth" val="5"/>
